@@ -1,0 +1,198 @@
+@import 'base.scss';
+$base-width: 150px;
+$base-height: 100px;
+$l-width: 300px;
+$l-height: 200px;
+$l-border-width: 50px;
+$n-border-width: 10px;
+$b-diff: $l-border-width - $n-border-width;
+$b-diff-width: $base-width + $b-diff*2;
+$b-diff-height: $base-height + $b-diff*2;
+
+@mixin apply-image-frame-as-border($url, $img-w, $img-h, $total-w, $frame-top, $frame-right, $frame-bot, $frame-left) {
+  $t-b-per: $frame-top / $img-h;
+  $r-b-per: $frame-right / $img-w;
+  $b-b-per: $frame-bot  / $img-h;
+  $l-b-per: $frame-left  / $img-w;
+
+  $r-b-w: $total-w * $r-b-per;
+  $l-b-w: $total-w * $l-b-per;
+
+  width: $total-w - $r-b-w - $l-b-w;
+  $im-h: $total-w * $img-h/$img-w;
+  $t-b-w: $im-h* $t-b-per;
+  $b-b-w: $im-h * $b-b-per;
+  height: $im-h - $t-b-w - $l-b-w;
+  border-width: $t-b-w $r-b-w $b-b-w $l-b-w;
+
+  border-image: url($url)          $t-b-per*100%           $r-b-per*100%            $b-b-per*100%          $l-b-per*100%;
+}
+
+.buttons{
+  div{
+    margin: 5px;
+    padding: 10px;
+    width: $base-width;
+    height: $base-height;
+    border: $l-border-width solid $primary-color;
+    float: left;
+
+    text-align: center;
+    font: $base-font;
+    font-weight: bold;
+    line-height: $base-height;
+
+    background-color: $light-color;
+    color: $primary-color;
+
+    &.dark{
+      background-color: $primary-color;
+      color: $light-color;
+    }
+
+    @include class-name-by-prop('border-style', '&.b-', 'solid', 'dotted', 'dashed', 'double', 'groove', 'ridge', 'inset', 'outset');
+    @include class-name-by-prop('outline-style', '&.o-', 'solid', 'dotted', 'dashed', 'double', 'groove', 'ridge', 'inset', 'outset');
+
+    &.b-{
+      border-color: transparent;
+
+      &combine{
+        border-style: solid ridge double dashed;
+      }
+
+      &tini{
+        width: $b-diff-width;
+        height: $b-diff-height;
+        line-height: $b-diff-height;
+        border-width: $n-border-width;
+      }
+
+      &col4{
+        border-color: $dark-color $primary-color white black;
+      }
+    }
+
+    &.im-{
+      &grad1{
+        border-image: linear-gradient($dark-color, $light-color) 1;
+      }
+      &grad2{
+        border-image: linear-gradient(to left, $light-color, $dark-color) 1;
+      }
+      &grad3{
+        border-image: linear-gradient($light-color 30%, $dark-color 100%) 1 fill;
+      }
+      &grad4{
+        border-image: linear-gradient(to right, $dark-color, $light-color, $primary-color) 1 fill;
+      }
+      &grad5{
+        border-image: linear-gradient(to bottom right, $dark-color, $primary-color 90%) 1;
+      }
+      &out{
+        border-image: linear-gradient(to bottom right, $dark-color, $primary-color 90%) 1 / 1/ 100px;
+        margin: -400px 100px 0;
+      }
+      &frame{
+        background: none;
+        @include apply-image-frame-as-border('img/frame.jpg', 1300px, 800px, $l-width, 175px, 140px, 175px, 140px);
+        /*
+        image: 1300x800 px
+        frame width: 140px ~11% of full image width
+        frame height: 175px ~22% of full image height
+        */
+      }
+      &arch{
+        background: none;
+        /*
+        image: 290 x 287px
+        frame width: 38px ~13% of full image width
+        frame height: 66px ~23% of full image height
+         */
+        @include apply-image-frame-as-border('img/red-arch.png', 290px, 287px, $l-width, 66px, 38px, 0px, 38px);
+      }
+
+      &harts{
+        background: none;
+        width: 700px;
+        border-image: url('img/harts-frame.png') fill 50 round ;
+      }
+      &kelt{
+        background: none;
+        width: 600px;
+        border-image: url('img/frame-kelt.jpg')  150 round ;
+      }
+      &plitka{
+        background: none;
+        width: 700px;
+        height: 700px;
+        border-width: 50px 50px 30px;
+        border-image: url("img/tekstura-plitka-ornament.jpg") 154 222 92 189 round;
+      }
+    }
+
+    &.c-{
+      &small{
+        border-radius: $l-border-width;
+      }
+      &round, &drop{
+        width: $base-width - $l-border-width;
+        height: $base-width - $l-border-width;
+        border-radius: $base-width;
+      }
+      &drop{
+        height: $base-width ;
+        border-top: none;
+      }
+      &note{
+        border-radius: 0 0 $l-border-width $l-border-width;
+      }
+      &flag{
+        border-radius: 0 $l-border-width $l-border-width 0;
+      }
+      &pi{
+        border-radius: $l-border-width;
+        border-bottom: transparent;
+        height: $base-width ;
+      }
+      &diag1{
+        border-radius: 0 $l-border-width;
+      }
+      &diag2{
+        border-radius: $l-border-width 0;
+      }
+    }
+
+    &.sh-{
+      &top{
+        @include box-shadow(0 10px 0 $dark-color);
+      }
+      &soft-top{
+        @include box-shadow(0 20px 15px $dark-color);
+      }
+      &spread-corner{
+        @include box-shadow(-10px -20px 20px 30px $dark-color);
+        margin: 0  60px;
+      }
+      &inset{
+        @include box-shadow( inset 10px 5px 10px $dark-color);
+      }
+      &double-inset{
+        box-shadow: inset 5px 5px 10px black, inset -5px -5px 10px white;
+      }
+      &multiple{
+        box-shadow: 15px 0 15px  black, 0 15px 15px  $dark-color, 0 -15px 15px  $primary-color, -15px 15px 15px $light-color;
+        margin: 30px;
+      }
+    }
+  }
+  &.outline{
+    div{
+      outline-width: 20px;
+      outline-color: $dark-color;
+      margin: 50px;
+      &.o-offset{
+        outline-offset: 10px;
+      }
+    }
+  }
+}
