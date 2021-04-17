@@ -1,0 +1,229 @@
+@import 'base.scss';
+
+div:not(.container) {
+  width: 100px;
+  height: 50px;
+  margin: 5px;
+  padding: 10px;
+  float: left;
+  background: $light-color;
+  color: $dark-color;
+  border: 4px solid $dark-color;
+  border-radius: 15px;
+  font: $base-font;
+  font-weight: bold;
+  line-height: 50px;
+}
+
+@mixin generate-delay($count, $max-value) {
+  $step: $max-value/$count;
+  @for $i from 0 to $count - 1 {
+    span:nth-child(#{$i}){
+      animation-delay: #{$step*$i}s;
+    }
+  }
+
+}
+
+div {
+  transition: all 0.5s ease;
+
+  &.container {
+    float: left;
+    background: $secondary-color;
+    border: 1px solid $secondary-dark-color;
+    margin: 5px;
+    padding: 5px;
+
+    &.size{
+      width: 300px;
+      height: 60px;
+      position: relative;
+      font: $base-font;
+      color: $dark-color;
+      font-weight: bold;
+      &.clock{
+        width: 100px;
+        height: 100px;
+        border-radius: 100px;
+        font-size: 15px;
+      }
+      span{
+        display: block;
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: $dark-color;
+        top: 70%;
+        left:0;
+        &.center{
+          width: 5px;
+          height: 5px;
+          left:52px;
+          top: 52px;
+          border-radius: 5px;
+        }
+        &.arrow{
+          width: 1px;
+          height: 54px;
+          left:54px;
+          top: 0;
+          transform-origin: center bottom;
+        }
+      }
+      @include generate-delay(15, 3);
+    }
+    div {
+      float: none;
+    }
+  }
+}
+
+#transform div:hover {
+
+  &.double-up {
+    transform: scale(2, 2);
+  }
+
+  &.double-x {
+    transform: scale(2, 1);
+  }
+
+  &.double-y {
+    transform: scale(1, 0.5);
+  }
+
+  &.container {
+
+    .mirror {
+      transform: scale(-1, -1);
+    }
+
+    .up-down {
+      transform: scale(1, -1);
+    }
+
+    .reflect {
+      transform: scale(1, -1) translateY(-58px);
+    }
+
+    .rotate {
+      transform: rotate(360deg);
+    }
+
+    .skewX {
+      transform: skewX(30deg);
+    }
+
+    .skewY {
+      transform: skewY(30deg);
+    }
+
+    .skew {
+      transform: skew(45deg, -45deg);
+    }
+
+    .t-left.t-top {
+      transform: translate(-10px, -10px);
+    }
+
+    .t-right.t-bottom {
+      transform: translate(10px, 10px);
+    }
+  }
+}
+
+@keyframes shadow {
+  from {box-shadow: none;}
+  to {box-shadow: 0 0 4px 4px $dark-color;}
+}
+@keyframes text-shadow {
+  from {text-shadow: none;}
+  to {text-shadow: 0 0 4px $dark-color;}
+}
+@keyframes rotate {
+  0% {
+  transform: none;
+}
+  100% {
+    transform: rotate(90deg);
+  }
+}
+@keyframes full-rotate {
+  0% {
+  transform: none;
+}
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes hours-rotate {
+  0% {
+    transform: none;
+  }
+  100% {
+    transform: rotate(330deg);
+  }
+}
+
+@keyframes to-right {
+  0% {
+    left:0;
+  }
+  100% {
+    left:100%;
+  }
+}
+
+.animation{
+  :hover{
+    &.shadow-delay{
+      animation: shadow  .5s 3 2s linear;
+    }
+    &.shadow {
+      animation: shadow  .5s 3 linear;
+    }
+  }
+
+  .text-shadow{
+    animation: text-shadow  1s infinite alternate linear;
+  }
+
+  @include class-name-by-prop('animation', '.rotate-', '',  rotate  3s infinite linear , normal, reverse, alternate, alternate-reverse);
+  @include class-name-by-prop('animation', '.timing-', ' span',  to-right  3s infinite , linear, ease, ease-in, ease-out, ease-in-out);
+
+  .timing-steps span{
+    animation: to-right 3s infinite steps(15);
+  }
+  .timing-linear span{
+    animation: to-right  3s infinite linear;
+  }
+
+  .rotate-center{
+    animation: full-rotate  3s infinite linear normal;
+  }
+  .rotate-corner{
+    animation: full-rotate  3s infinite linear normal;
+    transform-origin: left top;
+  }
+  .rotate-corner1{
+    animation: full-rotate  3s infinite linear reverse;
+    transform-origin: center bottom;
+  }
+
+  .timing-12-steps .arrow{
+    animation: hours-rotate 6s infinite alternate steps(11);
+  }
+  .timing-jump-start .arrow{
+    animation: hours-rotate 6s infinite alternate steps(11, jump-start);
+  }
+  .timing-jump-end .arrow{
+    animation: hours-rotate 6s infinite alternate steps(11, jump-end);
+  }
+  .timing-jump-none .arrow{
+    animation: hours-rotate 6s infinite alternate steps(11, jump-none);
+  }
+  .timing-jump-both .arrow{
+    animation: hours-rotate 6s infinite alternate steps(11, jump-both);
+  }
+}

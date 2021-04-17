@@ -1,6 +1,8 @@
 $dark-color: #581845;
 $primary-color: #900C3F;
 $light-color: #DAF7A6;
+$secondary-color: bisque;
+$secondary-dark-color: burlywood;
 
 $title-fnt-name:"Coca-Cola", "Brush Script MT", cursive;
 $base-fnt-name:"Myster-Display", "Courier New", Courier, monospace;
@@ -9,10 +11,10 @@ $base-font: 20px $base-fnt-name;
 $title-font: 90px $title-fnt-name;
 $scd-title-font: 50px $title-fnt-name;
 
-@mixin class-name-by-prop($prop,$class-prefix, $values...) {
+@mixin class-name-by-prop($prop,$class-prefix,$class-postfix, $value-prefix, $values...) {
   @each $value in $values {
-    #{$class-prefix}#{$value} {
-      #{$prop}: #{$value};
+    #{$class-prefix}#{$value}#{$class-postfix} {
+      #{$prop}: #{$value-prefix} #{$value};
     }
   }
 }

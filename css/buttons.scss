@@ -51,8 +51,8 @@ $b-diff-height: $base-height + $b-diff*2;
       color: $light-color;
     }
 
-    @include class-name-by-prop('border-style', '&.b-', 'solid', 'dotted', 'dashed', 'double', 'groove', 'ridge', 'inset', 'outset');
-    @include class-name-by-prop('outline-style', '&.o-', 'solid', 'dotted', 'dashed', 'double', 'groove', 'ridge', 'inset', 'outset');
+    @include class-name-by-prop('border-style', '&.b-', '', '', 'solid', 'dotted', 'dashed', 'double', 'groove', 'ridge', 'inset', 'outset');
+    @include class-name-by-prop('outline-style', '&.o-', '', '',  'solid', 'dotted', 'dashed', 'double', 'groove', 'ridge', 'inset', 'outset');
 
     &.b- {
       border-color: transparent;
