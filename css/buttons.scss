@@ -1,4 +1,5 @@
 @import 'base.scss';
+
 $base-width: 150px;
 $base-height: 100px;
 $l-width: 300px;
@@ -25,11 +26,11 @@ $b-diff-height: $base-height + $b-diff*2;
   height: $im-h - $t-b-w - $l-b-w;
   border-width: $t-b-w $r-b-w $b-b-w $l-b-w;
 
-  border-image: url($url)          $t-b-per*100%           $r-b-per*100%            $b-b-per*100%          $l-b-per*100%;
+  border-image: url($url) $t-b-per*100% $r-b-per*100% $b-b-per*100% $l-b-per*100%;
 }
 
-.buttons{
-  div{
+.buttons {
+  div {
     margin: 5px;
     padding: 10px;
     width: $base-width;
@@ -45,7 +46,7 @@ $b-diff-height: $base-height + $b-diff*2;
     background-color: $light-color;
     color: $primary-color;
 
-    &.dark{
+    &.dark {
       background-color: $primary-color;
       color: $light-color;
     }
@@ -53,46 +54,52 @@ $b-diff-height: $base-height + $b-diff*2;
     @include class-name-by-prop('border-style', '&.b-', 'solid', 'dotted', 'dashed', 'double', 'groove', 'ridge', 'inset', 'outset');
     @include class-name-by-prop('outline-style', '&.o-', 'solid', 'dotted', 'dashed', 'double', 'groove', 'ridge', 'inset', 'outset');
 
-    &.b-{
+    &.b- {
       border-color: transparent;
 
-      &combine{
+      &combine {
         border-style: solid ridge double dashed;
       }
 
-      &tini{
+      &tini {
         width: $b-diff-width;
         height: $b-diff-height;
         line-height: $b-diff-height;
         border-width: $n-border-width;
       }
 
-      &col4{
+      &col4 {
         border-color: $dark-color $primary-color white black;
       }
     }
 
-    &.im-{
-      &grad1{
+    &.im- {
+      &grad1 {
         border-image: linear-gradient($dark-color, $light-color) 1;
       }
-      &grad2{
+
+      &grad2 {
         border-image: linear-gradient(to left, $light-color, $dark-color) 1;
       }
-      &grad3{
+
+      &grad3 {
         border-image: linear-gradient($light-color 30%, $dark-color 100%) 1 fill;
       }
-      &grad4{
+
+      &grad4 {
         border-image: linear-gradient(to right, $dark-color, $light-color, $primary-color) 1 fill;
       }
-      &grad5{
+
+      &grad5 {
         border-image: linear-gradient(to bottom right, $dark-color, $primary-color 90%) 1;
       }
-      &out{
+
+      &out {
         border-image: linear-gradient(to bottom right, $dark-color, $primary-color 90%) 1 / 1/ 100px;
         margin: -400px 100px 0;
       }
-      &frame{
+
+      &frame {
         background: none;
         @include apply-image-frame-as-border('img/frame.jpg', 1300px, 800px, $l-width, 175px, 140px, 175px, 140px);
         /*
@@ -101,7 +108,8 @@ $b-diff-height: $base-height + $b-diff*2;
         frame height: 175px ~22% of full image height
         */
       }
-      &arch{
+
+      &arch {
         background: none;
         /*
         image: 290 x 287px
@@ -111,17 +119,19 @@ $b-diff-height: $base-height + $b-diff*2;
         @include apply-image-frame-as-border('img/red-arch.png', 290px, 287px, $l-width, 66px, 38px, 0px, 38px);
       }
 
-      &harts{
+      &harts {
         background: none;
         width: 700px;
-        border-image: url('img/harts-frame.png') fill 50 round ;
+        border-image: url('img/harts-frame.png') fill 50 round;
       }
-      &kelt{
+
+      &kelt {
         background: none;
         width: 600px;
-        border-image: url('img/frame-kelt.jpg')  150 round ;
+        border-image: url('img/frame-kelt.jpg') 150 round;
       }
-      &plitka{
+
+      &plitka {
         background: none;
         width: 700px;
         height: 700px;
@@ -130,67 +140,81 @@ $b-diff-height: $base-height + $b-diff*2;
       }
     }
 
-    &.c-{
-      &small{
+    &.c- {
+      &small {
         border-radius: $l-border-width;
       }
-      &round, &drop{
+
+      &round, &drop {
         width: $base-width - $l-border-width;
         height: $base-width - $l-border-width;
         border-radius: $base-width;
       }
-      &drop{
-        height: $base-width ;
+
+      &drop {
+        height: $base-width;
         border-top: none;
       }
-      &note{
+
+      &note {
         border-radius: 0 0 $l-border-width $l-border-width;
       }
-      &flag{
+
+      &flag {
         border-radius: 0 $l-border-width $l-border-width 0;
       }
-      &pi{
+
+      &pi {
         border-radius: $l-border-width;
         border-bottom: transparent;
-        height: $base-width ;
+        height: $base-width;
       }
-      &diag1{
+
+      &diag1 {
         border-radius: 0 $l-border-width;
       }
-      &diag2{
+
+      &diag2 {
         border-radius: $l-border-width 0;
       }
     }
 
-    &.sh-{
-      &top{
+    &.sh- {
+      &top {
         @include box-shadow(0 10px 0 $dark-color);
       }
-      &soft-top{
+
+      &soft-top {
         @include box-shadow(0 20px 15px $dark-color);
       }
-      &spread-corner{
+
+      &spread-corner {
         @include box-shadow(-10px -20px 20px 30px $dark-color);
-        margin: 0  60px;
+        margin: 0 60px;
       }
-      &inset{
-        @include box-shadow( inset 10px 5px 10px $dark-color);
+
+      &inset {
+        @include box-shadow(inset 10px 5px 10px $dark-color);
       }
-      &double-inset{
+
+      &double-inset {
         box-shadow: inset 5px 5px 10px black, inset -5px -5px 10px white;
       }
-      &multiple{
-        box-shadow: 15px 0 15px  black, 0 15px 15px  $dark-color, 0 -15px 15px  $primary-color, -15px 15px 15px $light-color;
+
+      &multiple {
+        box-shadow: 15px 0 15px black, 0 15px 15px $dark-color, 0 -15px 15px $primary-color, -15px 15px 15px $light-color;
         margin: 30px;
       }
     }
   }
-  &.outline{
-    div{
+
+  &.outline {
+    div {
       outline-width: 20px;
       outline-color: $dark-color;
       margin: 50px;
-      &.o-offset{
+
+      &.o-offset {
         outline-offset: 10px;
       }
     }
