@@ -18,7 +18,7 @@ div:not(.container) {
 @mixin generate-delay($count, $max-value) {
   $step: $max-value/$count;
   @for $i from 0 to $count - 1 {
-    span:nth-child(#{$i}){
+    span:nth-child(#{$i}) {
       animation-delay: #{$step*$i}s;
     }
   }
@@ -35,44 +35,76 @@ div {
     margin: 5px;
     padding: 5px;
 
-    &.size{
+    &.size {
       width: 300px;
       height: 60px;
       position: relative;
       font: $base-font;
       color: $dark-color;
       font-weight: bold;
-      &.clock{
+
+      &.clock {
         width: 100px;
         height: 100px;
         border-radius: 100px;
         font-size: 15px;
       }
-      span{
+
+      span {
         display: block;
         position: absolute;
         width: 2px;
         height: 2px;
         background: $dark-color;
         top: 70%;
-        left:0;
-        &.center{
+        left: 0;
+
+        &.center {
           width: 5px;
           height: 5px;
-          left:52px;
+          left: 52px;
           top: 52px;
           border-radius: 5px;
         }
-        &.arrow{
+
+        &.arrow {
           width: 1px;
           height: 54px;
-          left:54px;
+          left: 54px;
           top: 0;
           transform-origin: center bottom;
         }
+
+        &.wheel {
+          width: 30px;
+          height: 30px;
+          border-radius: 30px;
+          top: 20px;
+          color: $light-color;
+          font-size: 30px;
+          line-height: 34px;
+
+          &.round {
+            top: 40px;
+
+            &.rotate {
+              transform-origin: 56px 16px;
+
+              span {
+                position: static;
+                display: inline-block;
+                width: auto;
+                height: auto;
+                background: none;
+              }
+            }
+          }
+        }
       }
+
       @include generate-delay(15, 3);
     }
+
     div {
       float: none;
     }
@@ -134,29 +166,41 @@ div {
 }
 
 @keyframes shadow {
-  from {box-shadow: none;}
-  to {box-shadow: 0 0 4px 4px $dark-color;}
+  from {
+    box-shadow: none;
+  }
+  to {
+    box-shadow: 0 0 4px 4px $dark-color;
+  }
 }
+
 @keyframes text-shadow {
-  from {text-shadow: none;}
-  to {text-shadow: 0 0 4px $dark-color;}
+  from {
+    text-shadow: none;
+  }
+  to {
+    text-shadow: 0 0 4px $dark-color;
+  }
 }
+
 @keyframes rotate {
   0% {
-  transform: none;
-}
+    transform: none;
+  }
   100% {
     transform: rotate(90deg);
   }
 }
+
 @keyframes full-rotate {
   0% {
-  transform: none;
-}
+    transform: none;
+  }
   100% {
     transform: rotate(360deg);
   }
 }
+
 @keyframes hours-rotate {
   0% {
     transform: none;
@@ -168,62 +212,206 @@ div {
 
 @keyframes to-right {
   0% {
-    left:0;
+    left: 0;
   }
   100% {
-    left:100%;
+    left: 100%;
   }
 }
 
-.animation{
-  :hover{
-    &.shadow-delay{
-      animation: shadow  .5s 3 2s linear;
+@function get-rainbow-list($start) {
+  $percents: 0%, 16%, 33%, 50%, 66%, 83%, 100%;
+  $colors: #FF0000, #FF8000, #FFFF00, #00FF00, #0080FF, #0000FF, #8000FF;
+  $indexes: $start % 7, ($start + 1) % 7, ($start + 2) % 7, ($start + 3) % 7, ($start + 4) % 7, ($start + 5) % 7, ($start + 6) % 7;
+  $grad-sets: [];
+  @for $i from 1 through 7 {
+    $j: nth($indexes, $i) + 1;
+    $grad-sets: append($grad-sets, nth($colors, $j), comma);
+  }
+  @return $grad-sets;
+}
+
+@mixin rainbow-bg($start) {
+  $grad-sets: get-rainbow-list($start);
+  background: linear-gradient(to right, zip($grad-sets));
+}
+
+@mixin rainbow-anim($is-grad:true) {
+  $percents: 14%, 28%, 42%, 57%, 71%, 85%;
+  @for $i from 1 through 6 {
+    #{nth($percents, $i)} {
+      @if ($is-grad) {
+        @include rainbow-bg($i);
+      } @else {
+        $colors: #FF8000, #FFFF00, #00FF00, #0080FF, #0000FF, #8000FF;
+        background: #{nth($colors, $i)};
+      }
     }
+  }
+}
+
+@keyframes rainbow {
+  from,
+  to, 0%, 100% {
+    @include rainbow-bg(0);
+  }
+  @include rainbow-anim();
+}
+
+@keyframes rainbow2 {
+  from, 0% {
+    background-position-x: 0;
+  }
+  to, 100% {
+    background-position-x: 300px;
+  }
+}
+
+@keyframes rainbow3 {
+  from, 0%, to, 100% {
+    background: #FF0000;
+  }
+
+  @include rainbow-anim(false);
+}
+
+@keyframes wheel {
+  0% {
+    transform: none;
+    left: 0;
+  }
+  100% {
+    transform: rotate(720deg);
+    left: 280px;
+  }
+}
+
+@keyframes rotate-wheel {
+  0% {
+    transform: none;
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes round-wheel {
+  0% {
+    transform: none;
+    left: 0;
+    top: 40px
+  }
+  25% {
+    transform: rotate(180deg);
+    left: 40px;
+    top: 0
+  }
+  50% {
+    transform: rotate(360deg);
+    left: 80px;
+    top: 40px
+
+  }
+  75% {
+    transform: rotate(540deg);
+    left: 40px;
+    top: 80px
+  }
+  100% {
+    transform: rotate(720deg);
+    left: 0;
+    top: 40px
+  }
+}
+
+.animation {
+  :hover {
+    &.shadow-delay {
+      animation: shadow .5s 3 2s linear;
+    }
+
     &.shadow {
-      animation: shadow  .5s 3 linear;
+      animation: shadow .5s 3 linear;
+    }
+
+    .rotate-center {
+      animation: full-rotate 3s infinite linear normal;
+    }
+
+    .rotate-corner {
+      animation: full-rotate 3s infinite linear normal;
+      transform-origin: left top;
+    }
+
+    .rotate-corner1 {
+      animation: full-rotate 3s infinite linear reverse;
+      transform-origin: center bottom;
     }
   }
 
-  .text-shadow{
-    animation: text-shadow  1s infinite alternate linear;
+  .text-shadow {
+    animation: text-shadow 1s infinite alternate linear;
   }
 
-  @include class-name-by-prop('animation', '.rotate-', '',  rotate  3s infinite linear , normal, reverse, alternate, alternate-reverse);
-  @include class-name-by-prop('animation', '.timing-', ' span',  to-right  3s infinite , linear, ease, ease-in, ease-out, ease-in-out);
+  @include class-name-by-prop('animation', '.rotate-', '', rotate 3s infinite linear, normal, reverse, alternate, alternate-reverse);
+  @include class-name-by-prop('animation', '.timing-', ' span', to-right 3s infinite, linear, ease, ease-in, ease-out, ease-in-out);
 
-  .timing-steps span{
+  .timing-steps span {
     animation: to-right 3s infinite steps(15);
   }
-  .timing-linear span{
-    animation: to-right  3s infinite linear;
+
+  .timing-linear span {
+    animation: to-right 3s infinite linear;
   }
 
-  .rotate-center{
-    animation: full-rotate  3s infinite linear normal;
-  }
-  .rotate-corner{
-    animation: full-rotate  3s infinite linear normal;
-    transform-origin: left top;
-  }
-  .rotate-corner1{
-    animation: full-rotate  3s infinite linear reverse;
-    transform-origin: center bottom;
-  }
-
-  .timing-12-steps .arrow{
+  .timing-12-steps .arrow {
     animation: hours-rotate 6s infinite alternate steps(11);
   }
-  .timing-jump-start .arrow{
+
+  .timing-jump-start .arrow {
     animation: hours-rotate 6s infinite alternate steps(11, jump-start);
   }
-  .timing-jump-end .arrow{
+
+  .timing-jump-end .arrow {
     animation: hours-rotate 6s infinite alternate steps(11, jump-end);
   }
-  .timing-jump-none .arrow{
+
+  .timing-jump-none .arrow {
     animation: hours-rotate 6s infinite alternate steps(11, jump-none);
   }
-  .timing-jump-both .arrow{
+
+  .timing-jump-both .arrow {
     animation: hours-rotate 6s infinite alternate steps(11, jump-both);
+  }
+
+  .rainbow {
+    @include rainbow-bg(0);
+    animation: rainbow 2s infinite linear;
+  }
+
+  .rainbow2 {
+    background: linear-gradient(to right, #FF0000, #FF8000, #FFFF00, #00FF00, #0080FF, #0000FF, #8000FF, #FF0000);
+    animation: rainbow2 2s infinite linear;
+  }
+
+  .rainbow3 {
+    background: #FF0000;
+    animation: rainbow3 3s infinite linear;
+  }
+
+  .wheel {
+    animation: wheel 5s 0s infinite alternate;
+
+    &.round {
+      animation: round-wheel 5s 0s infinite;
+
+      &.rotate {
+        animation: rotate-wheel 5s 0s infinite linear;
+
+        span {
+          animation: rotate-wheel 1s 0s infinite linear;
+        }
+      }
+    }
   }
 }
