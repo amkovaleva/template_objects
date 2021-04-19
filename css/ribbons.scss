@@ -1,0 +1,179 @@
+@import 'base.scss';
+
+section div{
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  width: 300px;
+  height: 100px;
+  margin: 20px;
+  padding: 150px 50px;
+  background: $secondary-color;
+  border: 1px solid $secondary-dark-color;
+  font: $base-font;
+  font-weight: bold;
+  color: $primary-color;
+
+  .ribbon{
+    font-size: 15px;
+    position: absolute;
+
+    background: $primary-color;
+    color: $light-color;
+
+  }
+
+  &.simple{
+    overflow: hidden;
+    .ribbon{
+      width: 50%;
+      height: 20px;
+
+      &:nth-child(1){
+        top: 0;
+        left: 0;
+        transform: translateX(-30%) rotate( -45deg ) translate(-0px, -20px);
+        transform-origin: top right;
+      }
+      &:nth-child(2){
+        top: 0;
+        right: 0;
+        transform: translateX(30%) rotate( 45deg ) translate(0px, -20px);
+        transform-origin: top left;
+      }
+      &:nth-child(3){
+        bottom: 0;
+        right: 0;
+        transform: translateX(30%) rotate(-45deg) translate(0px, 20px);
+        transform-origin: bottom left;
+      }
+      &:nth-child(4){
+        bottom: 0;
+        left: 0;
+        transform: translateX(-30%) rotate( 45deg ) translate(-0px, 20px);
+        transform-origin: bottom right;
+      }
+    }
+
+  }
+
+  &.bookmark{
+    .ribbon{
+      line-height: 50px;
+      z-index: 2;
+
+      &:before{
+        content: '';
+        display: block;
+        position: absolute;
+        background: $primary-color;
+        width: 0;
+        height: 0;
+        z-index: -1;
+        border: 25px solid $primary-color;
+      }
+
+      &:nth-child(2n){
+        width: 50px;
+        height: 100px;
+      }
+      &:nth-child(2n + 1){
+        width: 100px;
+        height: 50px;
+      }
+
+      &:nth-child(1){
+        top: 10px;
+        left: 0;
+        &:before{
+          right: -25px;
+          transform: rotate( 45deg );
+        }
+      }
+
+      &:nth-child(n + 2):before{
+        background: none;
+      }
+
+      &:nth-child(2){
+        top: 0;
+        right: 10px;
+        &:before{
+          top: 75px;
+          border-color:transparent $primary-color transparent;
+        }
+      }
+      &:nth-child(3){
+        bottom: 10px;
+        right: 0;
+        &:before{
+          right: 100px;
+          border-color: transparent  $primary-color transparent transparent;
+        }
+
+      }
+      &:nth-child(4){
+        bottom: 0;
+        left: 10px;
+        &:before{
+          top: -50px;
+          border-color: transparent transparent $primary-color;
+        }
+      }
+    }
+  }
+
+  &.kink{
+    .ribbon{
+      width: 150px;
+      border-radius: 5px 5px 0 0;
+
+    &:before, &:after{
+        display: block;
+        content: '';
+        width: 0;
+        height: 0;
+        position: absolute;
+        border: 7px solid black;
+        border-color: black transparent transparent;
+      }
+      &:before{
+        right: 0;
+        top: 24px;
+      }
+
+      &:nth-child(n+3){
+        border-radius: 0 0 5px 5px;
+        &:before, &:after{
+          top: -14px;
+          border-color: transparent  transparent black;
+        }
+      }
+      &:nth-child(1){
+        top: 25px;
+        left: -50px;
+        transform: rotate( -45deg );
+        transform-origin: top center;
+
+      }
+      &:nth-child(2){
+        top: 25px;
+        right: -50px;
+        transform: rotate( 45deg );
+        transform-origin: top center;
+      }
+      &:nth-child(3){
+        bottom: 25px;
+        right: -50px;
+        transform: rotate( -45deg );
+        transform-origin: bottom center;
+      }
+      &:nth-child(4){
+        bottom: 25px;
+        left: -50px;
+        transform: rotate( 45deg );
+        transform-origin: bottom center;
+      }
+    }
+  }
+}

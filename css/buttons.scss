@@ -36,7 +36,8 @@ $b-diff-height: $base-height + $b-diff*2;
     width: $base-width;
     height: $base-height;
     border: $l-border-width solid $primary-color;
-    float: left;
+    display: inline-block;
+    vertical-align: middle;
 
     text-align: center;
     font: $base-font;
@@ -96,7 +97,6 @@ $b-diff-height: $base-height + $b-diff*2;
 
       &out {
         border-image: linear-gradient(to bottom right, $dark-color, $primary-color 90%) 1 / 1/ 100px;
-        margin: -400px 100px 0;
       }
 
       &frame {

@@ -55,11 +55,6 @@ h2{
 section{
   padding: 50px;
   border-bottom: 3px solid $primary-color;
-  &::after{
-    content: '';
-    display: block;
-    clear: both;
-  }
 }
 ul.index{
   list-style-type: none;

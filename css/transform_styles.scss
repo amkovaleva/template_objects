@@ -1,11 +1,12 @@
-@import 'base.scss';
+@import 'animation_examples.scss';
 
-div:not(.container) {
+section div div {
   width: 100px;
   height: 50px;
   margin: 5px;
   padding: 10px;
-  float: left;
+  display: inline-block;
+  vertical-align: middle;
   background: $light-color;
   color: $dark-color;
   border: 4px solid $dark-color;
@@ -13,318 +14,146 @@ div:not(.container) {
   font: $base-font;
   font-weight: bold;
   line-height: 50px;
-}
 
-@mixin generate-delay($count, $max-value) {
-  $step: $max-value/$count;
-  @for $i from 0 to $count - 1 {
-    span:nth-child(#{$i}) {
-      animation-delay: #{$step*$i}s;
-    }
-  }
-
-}
-
-div {
   transition: all 0.5s ease;
+}
 
-  &.container {
-    float: left;
-    background: $secondary-color;
-    border: 1px solid $secondary-dark-color;
-    margin: 5px;
-    padding: 5px;
+section > div {
+  display: inline-block;
+  vertical-align: middle;
+  background: $secondary-color;
+  border: 1px solid $secondary-dark-color;
+  margin: 5px;
+  padding: 5px;
 
-    &.size {
-      width: 300px;
-      height: 60px;
-      position: relative;
-      font: $base-font;
-      color: $dark-color;
-      font-weight: bold;
+  &.size {
+    width: 300px;
+    height: 60px;
+    position: relative;
+    font: $base-font;
+    color: $dark-color;
+    font-weight: bold;
 
-      &.clock {
-        width: 100px;
-        height: 100px;
-        border-radius: 100px;
-        font-size: 15px;
+    &.clock {
+      width: 100px;
+      height: 100px;
+      border-radius: 100px;
+      font-size: 15px;
+    }
+
+    span {
+      display: block;
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: $dark-color;
+      top: 70%;
+      left: 0;
+
+      &.center {
+        width: 5px;
+        height: 5px;
+        left: 52px;
+        top: 52px;
+        border-radius: 5px;
       }
 
-      span {
-        display: block;
-        position: absolute;
-        width: 2px;
-        height: 2px;
-        background: $dark-color;
-        top: 70%;
-        left: 0;
+      &.arrow {
+        width: 1px;
+        height: 54px;
+        left: 54px;
+        top: 0;
+        transform-origin: center bottom;
+      }
 
-        &.center {
-          width: 5px;
-          height: 5px;
-          left: 52px;
-          top: 52px;
-          border-radius: 5px;
-        }
+      &.wheel {
+        width: 30px;
+        height: 30px;
+        border-radius: 30px;
+        top: 20px;
+        color: $light-color;
+        font-size: 30px;
+        line-height: 34px;
 
-        &.arrow {
-          width: 1px;
-          height: 54px;
-          left: 54px;
-          top: 0;
-          transform-origin: center bottom;
-        }
+        &.round {
+          top: 40px;
 
-        &.wheel {
-          width: 30px;
-          height: 30px;
-          border-radius: 30px;
-          top: 20px;
-          color: $light-color;
-          font-size: 30px;
-          line-height: 34px;
+          &.rotate {
+            transform-origin: 56px 16px;
 
-          &.round {
-            top: 40px;
-
-            &.rotate {
-              transform-origin: 56px 16px;
-
-              span {
-                position: static;
-                display: inline-block;
-                width: auto;
-                height: auto;
-                background: none;
-              }
+            span {
+              position: static;
+              display: inline-block;
+              width: auto;
+              height: auto;
+              background: none;
             }
           }
         }
       }
-
-      @include generate-delay(15, 3);
     }
 
-    div {
-      float: none;
-    }
   }
 }
 
-#transform div:hover {
+#transform > div:hover {
 
-  &.double-up {
+  .double-up {
     transform: scale(2, 2);
   }
 
-  &.double-x {
+  .double-x {
     transform: scale(2, 1);
   }
 
-  &.double-y {
+  .double-y {
     transform: scale(1, 0.5);
   }
 
-  &.container {
-
-    .mirror {
-      transform: scale(-1, -1);
-    }
-
-    .up-down {
-      transform: scale(1, -1);
-    }
-
-    .reflect {
-      transform: scale(1, -1) translateY(-58px);
-    }
-
-    .rotate {
-      transform: rotate(360deg);
-    }
-
-    .skewX {
-      transform: skewX(30deg);
-    }
-
-    .skewY {
-      transform: skewY(30deg);
-    }
-
-    .skew {
-      transform: skew(45deg, -45deg);
-    }
-
-    .t-left.t-top {
-      transform: translate(-10px, -10px);
-    }
-
-    .t-right.t-bottom {
-      transform: translate(10px, 10px);
-    }
+  .mirror {
+    transform: scale(-1, -1);
   }
-}
 
-@keyframes shadow {
-  from {
-    box-shadow: none;
+  .up-down {
+    transform: scale(1, -1);
   }
-  to {
-    box-shadow: 0 0 4px 4px $dark-color;
-  }
-}
 
-@keyframes text-shadow {
-  from {
-    text-shadow: none;
+  .reflect {
+    transform: scale(1, -1) translateY(-58px);
   }
-  to {
-    text-shadow: 0 0 4px $dark-color;
-  }
-}
 
-@keyframes rotate {
-  0% {
-    transform: none;
-  }
-  100% {
-    transform: rotate(90deg);
-  }
-}
-
-@keyframes full-rotate {
-  0% {
-    transform: none;
-  }
-  100% {
+  .rotate {
     transform: rotate(360deg);
   }
-}
 
-@keyframes hours-rotate {
-  0% {
-    transform: none;
-  }
-  100% {
-    transform: rotate(330deg);
-  }
-}
-
-@keyframes to-right {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: 100%;
-  }
-}
-
-@function get-rainbow-list($start) {
-  $percents: 0%, 16%, 33%, 50%, 66%, 83%, 100%;
-  $colors: #FF0000, #FF8000, #FFFF00, #00FF00, #0080FF, #0000FF, #8000FF;
-  $indexes: $start % 7, ($start + 1) % 7, ($start + 2) % 7, ($start + 3) % 7, ($start + 4) % 7, ($start + 5) % 7, ($start + 6) % 7;
-  $grad-sets: [];
-  @for $i from 1 through 7 {
-    $j: nth($indexes, $i) + 1;
-    $grad-sets: append($grad-sets, nth($colors, $j), comma);
-  }
-  @return $grad-sets;
-}
-
-@mixin rainbow-bg($start) {
-  $grad-sets: get-rainbow-list($start);
-  background: linear-gradient(to right, zip($grad-sets));
-}
-
-@mixin rainbow-anim($is-grad:true) {
-  $percents: 14%, 28%, 42%, 57%, 71%, 85%;
-  @for $i from 1 through 6 {
-    #{nth($percents, $i)} {
-      @if ($is-grad) {
-        @include rainbow-bg($i);
-      } @else {
-        $colors: #FF8000, #FFFF00, #00FF00, #0080FF, #0000FF, #8000FF;
-        background: #{nth($colors, $i)};
-      }
-    }
-  }
-}
-
-@keyframes rainbow {
-  from,
-  to, 0%, 100% {
-    @include rainbow-bg(0);
-  }
-  @include rainbow-anim();
-}
-
-@keyframes rainbow2 {
-  from, 0% {
-    background-position-x: 0;
-  }
-  to, 100% {
-    background-position-x: 300px;
-  }
-}
-
-@keyframes rainbow3 {
-  from, 0%, to, 100% {
-    background: #FF0000;
+  .skewX {
+    transform: skewX(30deg);
   }
 
-  @include rainbow-anim(false);
-}
+  .skewY {
+    transform: skewY(30deg);
+  }
 
-@keyframes wheel {
-  0% {
-    transform: none;
-    left: 0;
+  .skew {
+    transform: skew(45deg, -45deg);
   }
-  100% {
-    transform: rotate(720deg);
-    left: 280px;
-  }
-}
 
-@keyframes rotate-wheel {
-  0% {
-    transform: none;
+  .t-left.t-top {
+    transform: translate(-10px, -10px);
   }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 
-@keyframes round-wheel {
-  0% {
-    transform: none;
-    left: 0;
-    top: 40px
+  .t-right.t-bottom {
+    transform: translate(10px, 10px);
   }
-  25% {
-    transform: rotate(180deg);
-    left: 40px;
-    top: 0
-  }
-  50% {
-    transform: rotate(360deg);
-    left: 80px;
-    top: 40px
 
-  }
-  75% {
-    transform: rotate(540deg);
-    left: 40px;
-    top: 80px
-  }
-  100% {
-    transform: rotate(720deg);
-    left: 0;
-    top: 40px
-  }
 }
 
 .animation {
+  &.timing{
+    .size{
+      @include generate-delay(15, 3);
+    }
+  }
   :hover {
     &.shadow-delay {
       animation: shadow .5s 3 2s linear;
@@ -355,6 +184,7 @@ div {
 
   @include class-name-by-prop('animation', '.rotate-', '', rotate 3s infinite linear, normal, reverse, alternate, alternate-reverse);
   @include class-name-by-prop('animation', '.timing-', ' span', to-right 3s infinite, linear, ease, ease-in, ease-out, ease-in-out);
+
 
   .timing-steps span {
     animation: to-right 3s infinite steps(15);
@@ -401,6 +231,9 @@ div {
 
   .wheel {
     animation: wheel 5s 0s infinite alternate;
+    &.square{
+      animation: square-wheel 5s 0s infinite;
+    }
 
     &.round {
       animation: round-wheel 5s 0s infinite;
@@ -412,6 +245,19 @@ div {
           animation: rotate-wheel 1s 0s infinite linear;
         }
       }
+    }
+    &.path{
+      animation: move-path 5s 0s infinite linear;
+      &.round{
+        offset-path: path('M15,15a40,40 0 1,0 80,0a40,40 0 1,0 -80,0');
+      }
+      &.square{
+        offset-path: path("M 0 0 v 45 h 305 v -60 h -305 ");
+      }
+      &.ellipse{
+        offset-path: path("M15,15a140,20 0 1,0 280,0a140,20 0 1,0 -280,0");
+      }
+
     }
   }
 }
