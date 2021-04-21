@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Just Menu</title>
+    <link rel="stylesheet" href="../../css/menus.css">
+</head>
+<body>
+<header class="fixed mobile">
+    <nav>
+        <a href="#" class="logo"></a>
+        <div class="toggle">
+            <span>&#10872;</span>
+        </div>
+        <div class="base">
+            <a href="#">One</a>
+            <a href="#">Two</a>
+            <a href="#">Three</a>
+        </div>
+        <div class="options">
+            <a href="#">&euro;</a><span>|</span>
+            <a href="#">&#9742;</a><span>|</span>
+            <a href="#">&#9775;</a>
+        </div>
+    </nav>
+</header>
+
+<script>
+    let toggle = document.getElementsByClassName('toggle')[0];
+    let span = toggle.firstElementChild;
+
+    let update_toggle = function (event){
+        let is_hidden = window.getComputedStyle(toggle,null).getPropertyValue("display") === "none",
+            is_click_event = event.type === 'click',
+            need_hiding = is_click_event && toggle.classList.contains('hover');
+
+        if(is_hidden || need_hiding)
+            toggle.classList.remove('hover');
+        else if (is_click_event)
+            toggle.classList.add('hover');
+    }
+    span.addEventListener('click', update_toggle);
+    window.addEventListener('resize', update_toggle);
+</script>
+
+</body>
+</html>

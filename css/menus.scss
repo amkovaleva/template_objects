@@ -1,0 +1,155 @@
+@import 'base.scss';
+
+body {
+  min-height: 300vh;
+  padding: 0;
+  background: $secondary-color;
+}
+
+header {
+  background: $dark-color;
+  color: $light-color;
+
+  &.fixed {
+    width: 100%;
+  }
+
+  nav {
+    padding: 10px;
+    text-align: left;
+    font-size: 0;
+    height: 80px;
+
+    > ul {
+      padding-top: 10px;
+
+      > li {
+        height: 80px;
+        width: 200px;
+        overflow: visible;
+
+        &:hover {
+          vertical-align: top;
+
+          ul {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+
+  .toggle {
+    display: none;
+    font-size: 30px;
+    color: $light-color;
+  }
+
+  .logo {
+    width: 60px;
+    height: 60px;
+    background: url('../../css/img/cherry.svg') no-repeat;
+
+    ~ .base {
+      width: calc(60% - 80px);
+
+      > :first-child {
+        padding-left: 50px;
+      }
+    }
+  }
+
+  div, ul {
+    display: inline-block;
+    vertical-align: middle;
+    font: $scd-title-font;
+
+    &.base {
+      width: 60%;
+      text-align: left;
+
+      a, span {
+        padding: 0 10px;
+      }
+    }
+
+    &.options {
+      width: 40%;
+      text-align: right;
+      font-size: 30px;
+
+      span {
+        padding: 0 3px;
+        color: $light-color;
+        font-size: 50px;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  ul {
+    list-style: none;
+
+    li {
+      display: inline-block;
+
+      ul {
+        display: none;
+        background: $dark-color;
+
+        li {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+a, span {
+  display: inline-block;
+  color: $light-color;
+}
+
+a {
+  text-decoration: none;
+  transition: all .5s;
+  vertical-align: middle;
+
+  &:hover {
+    transform: translateY(-5px);
+    text-decoration: underline;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  header.mobile {
+    .toggle {
+      width: calc(100% - 60px);
+      display: inline-block;
+      text-align: right;
+
+      span {
+        padding: 0 0 0 20px;
+        display: inline-block;
+        cursor: pointer;
+      }
+
+      &.hover {
+        ~ div {
+          display: inline-block;
+          width: 100%;
+          text-align: center;
+
+          &.base a {
+            width: 100%;
+            padding: 0;
+          }
+        }
+      }
+    }
+
+    .base, .options {
+      display: none;
+    }
+  }
+}
