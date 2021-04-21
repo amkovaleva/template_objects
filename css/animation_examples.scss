@@ -139,12 +139,13 @@
     transform: rotate(360deg);
   }
 }
+
 @keyframes square-wheel {
   0% {
     transform: none;
   }
   100% {
-    transform: translateY(50px) translateX(300px) translateY(-100px) translateX(-300px) ;
+    transform: translateY(50px) translateX(300px) translateY(-100px) translateX(-300px);
   }
 }
 

@@ -1,0 +1,115 @@
+@import 'base.scss';
+
+body > ul, body > ol {
+  display: inline-block;
+  font: $base-font;
+  margin: 50px;
+  max-width: 200px;
+
+  li {
+    text-align: left;
+    border: 1px solid transparent;
+
+    &:hover {
+      background: $secondary-color;
+      border: 1px solid $secondary-dark-color;
+    }
+  }
+}
+
+
+@include class-name-by-prop('list-style-type', '.list-', '', '', 'circle', 'disc', 'square', 'armenian', 'decimal', 'decimal-leading-zero', 'georgian', 'lower-alpha', 'lower-greek', 'lower-latin', 'lower-roman', 'upper-alpha', 'upper-latin', 'upper-roman', 'none');
+
+.inside {
+  list-style-position: inside;
+}
+
+.cherry {
+  list-style-image: url('img/cherry.svg');
+}
+
+.custom-cherry {
+  li::before {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0 20px;
+    vertical-align: middle;
+    content: "";
+    background: url(img/cherry.svg);
+  }
+}
+
+.marker {
+  ::marker {
+    color: $primary-color;
+    font-weight: bold;
+  }
+}
+ul.custom-marker-through, ul.custom-marker{
+  list-style: none;
+  counter-reset: item;
+  ul{
+    padding-left: 30px;
+    list-style: none;
+  }
+  li, li:hover{
+    background: none;
+    border: none;
+  }
+
+  li:before{
+    padding-right: 20px;
+  }
+}
+ul.custom-marker-through{
+  > li:before{
+    counter-increment: item;
+    content: counter(item) ;
+  }
+  >li:first-child{
+    counter-reset: inner;
+  }
+  ul li:before{
+    counter-increment: inner;
+    content: counter(inner) ;
+  }
+  &.join{
+    > li:before{
+      counter-increment: item 2;
+      content: counter(item) ;
+    }
+    ul li:before{
+      content:counter(item) '.' counter(inner);
+    }
+  }
+}
+ul.custom-marker{
+  ul{
+    counter-reset: item;
+  }
+  li:before{
+    counter-increment: item;
+    content: counters(item,".") ;
+  }
+  &.one-level{
+    li:before{
+      counter-increment: item;
+      content: "- "    counter(item) "- ";
+    }
+  }
+  &.diff{
+    li li:before{
+      content: "\270F "  counter(item);
+    }
+  }
+  &.through{
+    ul{
+      counter-reset: inner;
+      li:before{
+        counter-increment: inner;
+        content: "- "    counter(inner) "- ";
+      }
+    }
+  }
+}

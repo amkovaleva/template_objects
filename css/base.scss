@@ -56,11 +56,18 @@ section{
   padding: 50px;
   border-bottom: 3px solid $primary-color;
 }
-ul.index{
-  list-style-type: none;
-  font: $base-font;
-  font-weight: bold;
-  a{
-    text-decoration: none;
+.index{
+  section{
+    display: inline-block;
+    vertical-align: top;
+    border: none;
+  }
+  ul{
+    list-style-type: none;
+    font: $base-font;
+    font-weight: bold;
+    a{
+      text-decoration: none;
+    }
   }
 }
